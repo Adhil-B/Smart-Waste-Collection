@@ -62,9 +62,9 @@ def init_database():
     for table in tables:
         cursor.execute(table)
 
-    #locations = ['Downtown', 'Westside', 'Eastside', 'Northside', 'Southside']
-    #for location in locations:
-    #    cursor.execute("INSERT IGNORE INTO locations (name) VALUES (%s)", (location,))
+    locations = ['Downtown', 'Westside', 'Eastside', 'Northside', 'Southside']
+    for location in locations:
+        cursor.execute("INSERT IGNORE INTO locations (name) VALUES (%s)", (location,))
 
     # Insert a sample worker with hashed password
     worker_password = generate_password_hash('4321')
