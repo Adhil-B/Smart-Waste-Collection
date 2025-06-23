@@ -4,6 +4,7 @@ A modern, user-friendly web application for managing and optimizing waste pickup
 
 ## Table of Contents
 - [Overview](#overview)
+- [Screenshots](#screenshots)
 - [Features](#features)
 - [System Functions & Routes](#system-functions--routes)
 - [Setup Instructions](#setup-instructions)
