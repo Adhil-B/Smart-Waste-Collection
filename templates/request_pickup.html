@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Request Pickup - Smart Waste Management{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Request Pickup</h2>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="priority" class="form-label">Priority</label>
+                        <select class="form-control" id="priority" name="priority" required>
+                            <option value="urgent">Urgent</option>
+                            <option value="soon">Soon</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="preferred_time" class="form-label">Preferred Time</label>
+                        <input type="time" class="form-control" id="preferred_time" name="preferred_time" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="instructions" class="form-label">Instructions (Optional)</label>
+                        <textarea class="form-control" id="instructions" name="instructions" rows="3" placeholder="Any special instructions for the worker..."></textarea>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

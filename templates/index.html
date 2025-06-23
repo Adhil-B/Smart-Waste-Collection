@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - Smart Waste Management{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center min-vh-75">
+    <div class="col-md-8 text-center">
+        <div class="card bg-transparent border-0" style="box-shadow: none; padding-top: 40px;">
+            <div class="card-body">
+                <i class="fas fa-recycle fa-4x text-primary mb-4"></i>
+                <h1 class="display-4 mb-4"><b>Smart Waste Management</b></h1>
+                <p class="lead mb-5">A simple and efficient way to manage your waste pickup requests.</p>
+                
+                {% if not current_user.is_authenticated %}
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                        <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg px-4 gap-3">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </a>
+                        <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg px-4">
+                            <i class="fas fa-user-plus me-2"></i>Register
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg px-4 gap-3">
+                            <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

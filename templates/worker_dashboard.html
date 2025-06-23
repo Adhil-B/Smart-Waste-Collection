@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Worker Dashboard - Smart Waste Management{% endblock %}
+
+{% block content %}
+<!-- Statistics Section -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="dashboard-stats">
+            <h3>{{ pending_requests|length }}</h3>
+            <p><i class="fas fa-clock me-2"></i>Pending Requests</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="dashboard-stats">
+            <h3>{{ completed_requests|length }}</h3>
+            <p><i class="fas fa-check-circle me-2"></i>Completed Today</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="dashboard-stats">
+            <h3>{{ pending_requests|selectattr('priority', 'equalto', 'urgent')|list|length }}</h3>
+            <p><i class="fas fa-exclamation-triangle me-2"></i>Urgent Requests</p>
+        </div>
+    </div>
+</div>
+
+<!-- Pending Requests Section -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title mb-4">Pending Pickup Requests</h3>
+                {% if pending_requests %}
+                    {% for location in pending_requests|map(attribute='location_name')|unique|sort %}
+                        <div class="location-section mb-4">
+                            <h4 class="mb-3">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                {{ location }}
+                            </h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>House No</th>
+                                            <th>Time</th>
+                                            <th>Priority</th>
+                                            <th>Instructions</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for request in pending_requests|selectattr('location_name', 'equalto', location)|sort(attribute='preferred_time') %}
+                                            <tr>
+                                                <td>
+                                                    <i class="fas fa-home me-2 text-primary"></i>
+                                                    {{ request.house_no }}
+                                                </td>
+                                                <td>{{ request.preferred_time.strftime('%H:%M') }}</td>
+                                                <td>
+                                                    <span class="priority-{{ request.priority }}">
+                                                        <i class="fas fa-flag me-1"></i>{{ request.priority|title }}
+                                                    </span>
+                                                </td>
+                                                <td>{{ request.instructions or 'No instructions' }}</td>
+                                                <td>
+                                                    <form method="POST" action="{{ url_for('complete_pickup', request_id=request.id) }}" class="d-inline">
+                                                        <button type="submit" class="btn btn-success btn-sm">
+                                                            <i class="fas fa-check me-1"></i>Complete
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-check-circle fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No pending requests</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Completed Requests Section -->
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title mb-4">Completed Requests Today</h3>
+                {% if completed_requests %}
+                    <div class="table-responsive">
+                        <table class="table1 table">
+                            <thead>
+                                <tr>
+                                    <th>Location</th>
+                                    <th>House No</th>
+                                    <th>Completed At</th>
+                                    <th>Instructions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for request in completed_requests|sort(attribute='completed_at', reverse=true) %}
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-map-marker-alt me-2 text-primary"></i>
+                                            {{ request.location_name }}
+                                        </td>
+                                        <td>
+                                            <i class="fas fa-home me-2 text-primary"></i>
+                                            {{ request.house_no }}
+                                        </td>
+                                        <td>{{ request.completed_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                        <td>{{ request.instructions or 'No instructions' }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-history fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No completed requests today</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

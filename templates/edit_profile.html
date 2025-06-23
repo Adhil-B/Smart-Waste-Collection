@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Profile - Smart Waste Management{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Edit Profile</h2>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="full_name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="full_name" name="full_name" value="{{ user.full_name }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="house_no" class="form-label">House Number</label>
+                        <input type="text" class="form-control" id="house_no" name="house_no" value="{{ user.house_no }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location_id" class="form-label">Location</label>
+                        <select class="form-control" id="location_id" name="location_id" required>
+                            {% for location in locations %}
+                                <option value="{{ location.id }}" {% if location.id == user.location_id %}selected{% endif %}>
+                                    {{ location.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
