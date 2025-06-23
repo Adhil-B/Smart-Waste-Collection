@@ -20,6 +20,34 @@ This project provides a platform for:
 
 The system is ideal for municipalities, gated communities, or any organization looking to digitize and optimize waste collection.
 
+## Screenshots
+
+![Home Page](screenshots/home.png)
+<details>
+  <summary>View More Screenshots (Click to Expand)</summary>
+
+  ### Login Page
+
+  ![Login Page](screenshots/login.png)
+
+  ### Registation Page
+
+  ![Register Page](screenshots/register.png)
+
+  ### User Dashboard
+
+  ![User Dashboard](screenshots/user.png)
+
+  ### Pickup Request
+
+  ![Pickup Request](screenshots/pickup.png)
+
+  ### Worker Dashboard
+
+  ![Worker Dashboard](screenshots/worker.png)
+
+</details>
+
 ## Features
 - **User Registration & Login:** Residents can create accounts and securely log in.
 - **Worker Login:** Special accounts for waste collection workers.
